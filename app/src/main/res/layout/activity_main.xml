@@ -1,23 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <com.example.drawapp.DrawView
-        android:id="@+id/draw_view"
+    <com.example.drawapp.LineView
+        android:id="@+id/draw_line"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="0dp" />
 
 
+    <com.example.drawapp.DrawView
+        android:id="@+id/draw_view"
+        android:layout_weight="1"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
+
+    <com.example.drawapp.SquareView
+        android:id="@+id/draw_square"
+        android:layout_weight="1"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_height="wrap_content">
 
     <Button
         android:id="@+id/btn_reset"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
         android:text="@string/reset"/>
+
+    <Button
+        android:id="@+id/btn_line"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:text="@string/line"/>
+
+    <Button
+        android:id="@+id/btn_path"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:text="@string/path"/>
+
+    <Button
+        android:id="@+id/btn_square"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:text="@string/square"/>
+</LinearLayout>
 
 </LinearLayout>

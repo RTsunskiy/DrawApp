@@ -4,12 +4,15 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.PointF;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +23,8 @@ public class SquareView extends View {
     private List<Box> mBoxes = new ArrayList<>();
     private Paint mBoxPaint;
     private Paint mBackgroundPaint;
+
+    SavedFigure figure = MainActivity.getSavedFigure();
 
     public SquareView(Context context) {
         this(context, null);
@@ -34,9 +39,12 @@ public class SquareView extends View {
         mBackgroundPaint.setColor(Color.WHITE);
     }
 
+
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.drawPaint(mBackgroundPaint);
+
+        drawAnotherFigure(canvas);
 
         for (Box box : mBoxes) {
             float left = Math.min(box.getOrigin().x, box.getCurrent().x);
@@ -46,6 +54,28 @@ public class SquareView extends View {
             canvas.drawRect(left, top, right, bottom, mBoxPaint);
         }
     }
+
+
+
+
+    private void drawAnotherFigure(Canvas canvas) {
+        if (MainActivity.getSavedFigure() != null) {
+//            if (figure.getPath() != null && figure.getPaintDraw() != null) {
+//                canvas.drawPath((Path) figure.getPath(), figure.getPaintDraw());
+//            }
+            if (figure.getSquareBoxes() != null && figure.getPaintSquare() != null) {
+                if (figure.getSquareBoxes().size() > 0) {
+                    for (Box box : figure.getSquareBoxes()) {
+                        float left = Math.min(box.getOrigin().x, box.getCurrent().x);
+                        float right = Math.max(box.getOrigin().x, box.getCurrent().x);
+                        float top = Math.min(box.getOrigin().y, box.getCurrent().y);
+                        float bottom = Math.max(box.getOrigin().y, box.getCurrent().y);
+                        canvas.drawRect(left, top, right, bottom, figure.getPaintSquare());
+                    }}
+            }
+        }
+    }
+
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -72,6 +102,12 @@ public class SquareView extends View {
         return true;
     }
 
+    public List<Box> getmBoxes() {
+        return mBoxes;
+    }
 
+    public Paint getmBoxPaint() {
+        return mBoxPaint;
+    }
 }
 

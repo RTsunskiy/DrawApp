@@ -13,8 +13,11 @@ import androidx.annotation.Nullable;
 
 import static android.view.MotionEvent.ACTION_DOWN;
 import static android.view.MotionEvent.ACTION_MOVE;
+import static android.view.MotionEvent.ACTION_POINTER_DOWN;
 
 public class DrawView extends View {
+
+    SavedFigure figure = MainActivity.getSavedFigure();
 
     private static final float STROKE_WIDTH = 10f;
 
@@ -28,7 +31,31 @@ public class DrawView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
+
         canvas.drawPath(mPath, mPaint);
+
+        drawAnotherFigure(canvas);
+    }
+
+    private void drawAnotherFigure(Canvas canvas) {
+        if (MainActivity.getSavedFigure() != null) {
+            if (figure.getLineBoxes() != null && figure.getPaintLine() != null) {
+                if (figure.getLineBoxes().size() > 0) {
+                    for (Box box : figure.getLineBoxes()) {
+                        canvas.drawLine(box.getOrigin().x, box.getOrigin().y, box.getCurrent().x, box.getCurrent().y, figure.getPaintLine());
+                    }}
+            }
+            if (figure.getSquareBoxes() != null && figure.getPaintSquare() != null) {
+                if (figure.getSquareBoxes().size() > 0) {
+                    for (Box box : figure.getSquareBoxes()) {
+                        float left = Math.min(box.getOrigin().x, box.getCurrent().x);
+                        float right = Math.max(box.getOrigin().x, box.getCurrent().x);
+                        float top = Math.min(box.getOrigin().y, box.getCurrent().y);
+                        float bottom = Math.max(box.getOrigin().y, box.getCurrent().y);
+                        canvas.drawRect(left, top, right, bottom, figure.getPaintSquare());
+                    }}
+            }
+        }
     }
 
     @Override
@@ -62,5 +89,13 @@ public class DrawView extends View {
         mPaint.setColor(Color.RED);
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeJoin(Paint.Join.ROUND);
+    }
+
+    public Path getmPath() {
+        return mPath;
+    }
+
+    public Paint getmPaint() {
+        return mPaint;
     }
 }
