@@ -24,7 +24,13 @@ public class SquareView extends View {
     private Paint mBoxPaint;
     private Paint mBackgroundPaint;
 
-    SavedFigure figure = MainActivity.getSavedFigure();
+    private int squareColor = Color.BLACK;
+
+    public void setSquareColor(int squareColor) {
+        this.squareColor = squareColor;
+        setUpSquarePaint();
+        invalidate();
+    }
 
     public SquareView(Context context) {
         this(context, null);
@@ -33,8 +39,12 @@ public class SquareView extends View {
     public SquareView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
 
+        setUpSquarePaint();
+    }
+
+    private void setUpSquarePaint() {
         mBoxPaint = new Paint();
-        mBoxPaint.setColor(Color.BLACK);
+        mBoxPaint.setColor(squareColor);
         mBackgroundPaint = new Paint();
         mBackgroundPaint.setColor(Color.WHITE);
     }
@@ -42,6 +52,7 @@ public class SquareView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
+
         canvas.drawPaint(mBackgroundPaint);
 
         drawAnotherFigure(canvas);
@@ -59,22 +70,26 @@ public class SquareView extends View {
 
 
     private void drawAnotherFigure(Canvas canvas) {
-        if (MainActivity.getSavedFigure() != null) {
-//            if (figure.getPath() != null && figure.getPaintDraw() != null) {
-//                canvas.drawPath((Path) figure.getPath(), figure.getPaintDraw());
-//            }
-            if (figure.getSquareBoxes() != null && figure.getPaintSquare() != null) {
-                if (figure.getSquareBoxes().size() > 0) {
-                    for (Box box : figure.getSquareBoxes()) {
-                        float left = Math.min(box.getOrigin().x, box.getCurrent().x);
-                        float right = Math.max(box.getOrigin().x, box.getCurrent().x);
-                        float top = Math.min(box.getOrigin().y, box.getCurrent().y);
-                        float bottom = Math.max(box.getOrigin().y, box.getCurrent().y);
-                        canvas.drawRect(left, top, right, bottom, figure.getPaintSquare());
-                    }}
+
+        Paint drawPint = MainActivity.drawView.getmPaint();
+        Path drawPath = MainActivity.drawView.getmPath();
+
+        Paint linePaint = MainActivity.lineView.getmBoxPaint();
+        List<Box> lineBox = MainActivity.lineView.getmBoxes();
+
+
+        if (drawPint != null && drawPath != null) {
+            canvas.drawPath(drawPath, drawPint);
+        }
+
+        if (lineBox.size() > 0 && linePaint != null) {
+            for (Box box : lineBox) {
+                    canvas.drawLine(box.getOrigin().x, box.getOrigin().y, box.getCurrent().x, box.getCurrent().y, linePaint);
+                }
             }
         }
-    }
+
+
 
 
     @Override
@@ -108,6 +123,11 @@ public class SquareView extends View {
 
     public Paint getmBoxPaint() {
         return mBoxPaint;
+    }
+
+    public void reset() {
+        mBoxes.clear();
+        invalidate();
     }
 }
 

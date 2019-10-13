@@ -4,4 +4,7 @@
     <string name="line">Line</string>
     <string name="path">Path</string>
     <string name="square">Square</string>
+    <string name="red_color_string">Красный</string>
+    <string name="blue_string">Голубой</string>
+    <string name="green_string">Зеленый</string>
 </resources>

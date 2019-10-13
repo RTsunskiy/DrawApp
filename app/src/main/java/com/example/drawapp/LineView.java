@@ -6,13 +6,11 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PointF;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +21,15 @@ public class LineView extends View {
     private List<Box> mBoxes = new ArrayList<>();
     private Paint mBoxPaint;
 
-    SavedFigure figure = MainActivity.getSavedFigure();
+    public void setLineColor(int lineColor) {
+        this.lineColor = lineColor;
+        setupLinePaint();
+        invalidate();
+    }
+
+    private int lineColor;
+
+
 
     private Paint mBackgroundPaint;
 
@@ -34,8 +40,12 @@ public class LineView extends View {
     public LineView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
 
+        setupLinePaint();
+    }
+
+    private void setupLinePaint() {
         mBoxPaint = new Paint();
-        mBoxPaint.setColor(Color.BLUE);
+        mBoxPaint.setColor(lineColor);
         mBoxPaint.setStrokeWidth(30f);
         mBackgroundPaint = new Paint();
         mBackgroundPaint.setColor(Color.WHITE);
@@ -46,35 +56,39 @@ public class LineView extends View {
     protected void onDraw(Canvas canvas) {
         canvas.drawPaint(mBackgroundPaint);
 
+        drawAnotherFigure(canvas);
 
         if (mBoxes.size() > 0) {
         for (Box box : mBoxes) {
                 canvas.drawLine(box.getOrigin().x, box.getOrigin().y, box.getCurrent().x, box.getCurrent().y, mBoxPaint);
             }}
-
-        drawAnotherFigure(canvas);
-
     }
 
 
 
     private void drawAnotherFigure(Canvas canvas) {
-        if (MainActivity.getSavedFigure() != null) {
-//            if (figure.getPath() != null && figure.getPaintDraw() != null) {
-//                canvas.drawPath((Path) figure.getPath(), figure.getPaintDraw());
-//            }
-            if (figure.getSquareBoxes() != null && figure.getPaintSquare() != null) {
-                if (figure.getSquareBoxes().size() > 0) {
-                    for (Box box : figure.getSquareBoxes()) {
+
+        Paint drawPint = MainActivity.drawView.getmPaint();
+        Path drawPath = MainActivity.drawView.getmPath();
+
+        Paint squarePaint = MainActivity.squareView.getmBoxPaint();
+        List<Box> squareBox = MainActivity.squareView.getmBoxes();
+
+        if (drawPint != null && drawPath != null) {
+            canvas.drawPath(drawPath, drawPint);
+        }
+
+        if (squareBox.size() > 0 && squarePaint != null) {
+            for (Box box : squareBox) {
                         float left = Math.min(box.getOrigin().x, box.getCurrent().x);
                         float right = Math.max(box.getOrigin().x, box.getCurrent().x);
                         float top = Math.min(box.getOrigin().y, box.getCurrent().y);
                         float bottom = Math.max(box.getOrigin().y, box.getCurrent().y);
-                        canvas.drawRect(left, top, right, bottom, figure.getPaintSquare());
-                    }}
-            }
+                        canvas.drawRect(left, top, right, bottom, MainActivity.squareView.getmBoxPaint());
+                    }
         }
-    }
+        }
+
 
 
     @Override
@@ -108,5 +122,10 @@ public class LineView extends View {
 
     public Paint getmBoxPaint() {
         return mBoxPaint;
+    }
+
+    public void reset() {
+        mBoxes.clear();
+        invalidate();
     }
 }
