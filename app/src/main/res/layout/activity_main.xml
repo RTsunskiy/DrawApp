@@ -74,6 +74,7 @@
     <Button
         android:id="@+id/btn_reset"
         android:layout_width="0dp"
+        android:background="@color/colorYellow"
         android:layout_weight="1"
         android:layout_height="wrap_content"
         android:text="@string/reset"/>
@@ -81,6 +82,7 @@
     <Button
         android:id="@+id/btn_line"
         android:layout_width="0dp"
+        android:background="@color/colorYellow"
         android:layout_weight="1"
         android:layout_height="wrap_content"
         android:text="@string/line"/>
@@ -89,12 +91,14 @@
         android:id="@+id/btn_path"
         android:layout_width="0dp"
         android:layout_weight="1"
+        android:background="@color/colorYellow"
         android:layout_height="wrap_content"
         android:text="@string/path"/>
 
     <Button
         android:id="@+id/btn_square"
         android:layout_width="0dp"
+        android:background="@color/colorYellow"
         android:layout_weight="1"
         android:layout_height="wrap_content"
         android:text="@string/square"/>
