@@ -15,17 +15,12 @@ public class MainActivity extends AppCompatActivity {
         return drawView;
     }
 
-    public LineView getLineView() {
-        return lineView;
-    }
 
-    public SquareView getSquareView() {
-        return squareView;
-    }
+
+
 
    static DrawView drawView;
-   static LineView lineView;
-   static SquareView squareView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +32,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void initViews() {
         drawView = findViewById(R.id.draw_view);
-        lineView = findViewById(R.id.draw_line);
-        squareView = findViewById(R.id.draw_square);
 
         Button resetButton = findViewById(R.id.btn_reset);
         Button drawButton = findViewById(R.id.btn_path);
@@ -53,9 +46,7 @@ public class MainActivity extends AppCompatActivity {
         drawButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                lineView.setVisibility(View.GONE);
-                squareView.setVisibility(View.GONE);
-                drawView.setVisibility(View.VISIBLE);
+                drawView.setFigure(0);
             }
         });
 
@@ -63,9 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                drawView.setVisibility(View.GONE);
-                squareView.setVisibility(View.GONE);
-                lineView.setVisibility(View.VISIBLE);
+                drawView.setFigure(2);
             }
         });
 
@@ -73,9 +62,7 @@ public class MainActivity extends AppCompatActivity {
         squareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                lineView.setVisibility(View.GONE);
-                drawView.setVisibility(View.GONE);
-                squareView.setVisibility(View.VISIBLE);
+                drawView.setFigure(1);
             }
         });
 
@@ -83,36 +70,28 @@ public class MainActivity extends AppCompatActivity {
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                lineView.reset();
                 drawView.reset();
-                squareView.reset();
             }
         });
 
         redColorButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                lineView.setLineColor(getResources().getColor(R.color.colorRed));
-                drawView.setPathColor(getResources().getColor(R.color.colorRed));
-                squareView.setSquareColor(getResources().getColor(R.color.colorRed));
+                drawView.setFigureColor(0);
             }
         });
 
         greenColorButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                lineView.setLineColor(getResources().getColor(R.color.colorGreen));
-                drawView.setPathColor(getResources().getColor(R.color.colorGreen));
-                squareView.setSquareColor(getResources().getColor(R.color.colorGreen));
+                drawView.setFigureColor(1);
             }
         });
 
         blueColorButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                lineView.setLineColor(getResources().getColor(R.color.colorBlue));
-                drawView.setPathColor(getResources().getColor(R.color.colorBlue));
-                squareView.setSquareColor(getResources().getColor(R.color.colorBlue));
+                drawView.setFigureColor(2);
             }
         });
     }

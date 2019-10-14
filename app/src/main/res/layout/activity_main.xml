@@ -7,13 +7,6 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <com.example.drawapp.LineView
-        android:id="@+id/draw_line"
-        android:layout_weight="1"
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="0dp" />
-
 
     <com.example.drawapp.DrawView
         android:id="@+id/draw_view"
@@ -21,13 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp" />
 
-
-    <com.example.drawapp.SquareView
-        android:id="@+id/draw_square"
-        android:layout_weight="1"
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="0dp" />
 
 
     <LinearLayout
