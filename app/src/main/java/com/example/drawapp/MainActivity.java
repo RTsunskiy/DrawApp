@@ -4,6 +4,7 @@ package com.example.drawapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,7 +17,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+       public enum Figure {
+            LINE,
+           SQUARE,
+           PATH
+        }
 
+        public enum FigureColor {
+        RED,
+            GREEN,
+            BLUE
+        }
 
 
    static DrawView drawView;
@@ -46,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         drawButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                drawView.setFigure(0);
+                drawView.setFigure(Figure.PATH);
             }
         });
 
@@ -54,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                drawView.setFigure(2);
+                drawView.setFigure(Figure.LINE);
             }
         });
 
@@ -62,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         squareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                drawView.setFigure(1);
+                drawView.setFigure(Figure.SQUARE);
             }
         });
 
@@ -77,21 +88,21 @@ public class MainActivity extends AppCompatActivity {
         redColorButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                drawView.setFigureColor(0);
+                drawView.setFigureColor(Color.RED);
             }
         });
 
         greenColorButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                drawView.setFigureColor(1);
+                drawView.setFigureColor(Color.GREEN);
             }
         });
 
         blueColorButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                drawView.setFigureColor(2);
+                drawView.setFigureColor(Color.BLUE);
             }
         });
     }

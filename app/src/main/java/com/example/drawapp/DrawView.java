@@ -21,7 +21,7 @@ import static android.view.MotionEvent.ACTION_POINTER_DOWN;
 
 public class DrawView extends View {
 
-    private int figureType;
+    private MainActivity.Figure figureType;
     private int figureColor;
 
 
@@ -55,7 +55,7 @@ public class DrawView extends View {
 
 
 
-    public void setFigure(int figureType) {
+    public void setFigure(MainActivity.Figure figureType) {
         this.figureType = figureType;
         invalidate();
     }
@@ -131,7 +131,7 @@ public class DrawView extends View {
 
         PointF current = new PointF(event.getX(), event.getY());
 
-        if (figureType == 0 && figureColor == 0) {
+        if (figureType == MainActivity.Figure.PATH && figureColor == Color.RED) {
             float eventX = event.getX();
             float eventY = event.getY();
 
@@ -147,7 +147,7 @@ public class DrawView extends View {
             }
         }
 
-        if (figureType == 0 && figureColor == 1) {
+        if (figureType == MainActivity.Figure.PATH && figureColor == Color.GREEN) {
             float eventX = event.getX();
             float eventY = event.getY();
 
@@ -163,7 +163,7 @@ public class DrawView extends View {
             }
         }
 
-        if (figureType == 0 && figureColor == 2) {
+        if (figureType == MainActivity.Figure.PATH && figureColor == Color.BLUE) {
             float eventX = event.getX();
             float eventY = event.getY();
 
@@ -179,7 +179,7 @@ public class DrawView extends View {
             }
         }
 
-        else if (figureType == 1 && figureColor == 0) {
+        else if (figureType == MainActivity.Figure.SQUARE && figureColor == Color.RED) {
             switch(event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     mSquareCurrentBox = new Box(current);
@@ -199,7 +199,7 @@ public class DrawView extends View {
         }
 
 
-        else if (figureType == 1 && figureColor == 1) {
+        else if (figureType == MainActivity.Figure.SQUARE && figureColor == Color.GREEN) {
             switch(event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     mSquareCurrentBox = new Box(current);
@@ -219,7 +219,7 @@ public class DrawView extends View {
         }
 
 
-        else if (figureType == 1 && figureColor == 2) {
+        else if (figureType == MainActivity.Figure.SQUARE && figureColor == Color.BLUE) {
             switch(event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     mSquareCurrentBox = new Box(current);
@@ -238,58 +238,61 @@ public class DrawView extends View {
             }
         }
 
-        else if (figureType == 2 && figureColor == 0) {
+        else if (figureType == MainActivity.Figure.LINE && figureColor == Color.RED) {
             switch(event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     mLineCurrentBox = new Box(current);
                     mLineBoxesRed.add(mLineCurrentBox);
                     break;
                 case MotionEvent.ACTION_MOVE:
-                    break;
-                case MotionEvent.ACTION_UP:
-                case MotionEvent.ACTION_CANCEL:
                     if (mLineCurrentBox != null) {
                         mLineCurrentBox.setCurrent(current);
                         invalidate();
                     }
+                    break;
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_CANCEL:
+
                     mLineCurrentBox = null;
                     break;
             }
         }
 
-        else if (figureType == 2 && figureColor == 1) {
+        else if (figureType == MainActivity.Figure.LINE && figureColor == Color.GREEN) {
             switch(event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     mLineCurrentBox = new Box(current);
                     mLineBoxesGreen.add(mLineCurrentBox);
                     break;
                 case MotionEvent.ACTION_MOVE:
-                    break;
-                case MotionEvent.ACTION_UP:
-                case MotionEvent.ACTION_CANCEL:
                     if (mLineCurrentBox != null) {
                         mLineCurrentBox.setCurrent(current);
                         invalidate();
                     }
+                    break;
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_CANCEL:
+
                     mLineCurrentBox = null;
                     break;
             }
         }
 
-        else if (figureType == 2 && figureColor == 2) {
+        else if (figureType == MainActivity.Figure.LINE && figureColor == Color.BLUE) {
             switch(event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     mLineCurrentBox = new Box(current);
                     mLineBoxesBlue.add(mLineCurrentBox);
                     break;
                 case MotionEvent.ACTION_MOVE:
-                    break;
-                case MotionEvent.ACTION_UP:
-                case MotionEvent.ACTION_CANCEL:
                     if (mLineCurrentBox != null) {
                         mLineCurrentBox.setCurrent(current);
                         invalidate();
                     }
+                    break;
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_CANCEL:
+
                     mLineCurrentBox = null;
                     break;
             }
