@@ -51,6 +51,10 @@ public class DrawView extends View {
     private Paint mSquareBoxPaintGreen;
     private Paint mSquareBoxPaintBlue;
 
+    private MultiDraw mCurrentMultiFigure;
+    private List<MultiDraw> mMultiFigures = new ArrayList<>();
+    private int mCurrentColor;
+
     private Paint mBackgroundPaint;
 
 
@@ -121,7 +125,35 @@ public class DrawView extends View {
                     canvas.drawLine(box.getOrigin().x, box.getOrigin().y, box.getCurrent().x, box.getCurrent().y, mLineBoxPaintBlue);
                 }
 
+
+        canvas.drawPath(mPathBlue, mPaintBlue);
+            for (MultiDraw figure : mMultiFigures) {
+                figure.multiFigureDraw(canvas);
+            }
+
+            if (mCurrentMultiFigure != null) {
+                mCurrentMultiFigure.multiFigureDraw(canvas);
+            }
+
+        canvas.drawPath(mPathRed, mPaintRed);
+        for (MultiDraw figure : mMultiFigures) {
+            figure.multiFigureDraw(canvas);
         }
+
+        if (mCurrentMultiFigure != null) {
+            mCurrentMultiFigure.multiFigureDraw(canvas);
+        }
+
+
+        canvas.drawPath(mPathGreen, mPaintGreen);
+        for (MultiDraw figure : mMultiFigures) {
+            figure.multiFigureDraw(canvas);
+        }
+
+        if (mCurrentMultiFigure != null) {
+            mCurrentMultiFigure.multiFigureDraw(canvas);
+        }
+    }
 
 
 
@@ -296,6 +328,34 @@ public class DrawView extends View {
                     mLineCurrentBox = null;
                     break;
             }
+        }
+
+       else if (figureType == MainActivity.Figure.MULTI && figureColor == Color.RED) {
+
+            switch (event.getActionMasked()) {
+                case MotionEvent.ACTION_DOWN:
+                    mCurrentMultiFigure = new MultiDraw(mCurrentColor);
+                    current = mCurrentMultiFigure.getPoint(0);
+                    break;
+                case MotionEvent.ACTION_POINTER_DOWN:
+                    int pointerId = event.getPointerId(event.getActionIndex());
+                    current = mCurrentMultiFigure.getPoint(pointerId);
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    for (int i = 0; i < event.getPointerCount(); i++) {
+                        int pointId = event.getPointerId(i);
+                        mCurrentMultiFigure.getPoint(pointId).x = event.getX(i);
+                        mCurrentMultiFigure.getPoint(pointId).y = event.getY(i);
+                    }
+                    break;
+                case MotionEvent.ACTION_UP:
+                    mMultiFigures.add(mCurrentMultiFigure);
+                    mCurrentMultiFigure = null;
+                    break;
+            }
+
+            current.x = event.getX(event.getActionIndex());
+            current.y = event.getY(event.getActionIndex());
         }
 
         invalidate();

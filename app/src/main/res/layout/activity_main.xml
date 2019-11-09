@@ -88,6 +88,14 @@
         android:layout_weight="1"
         android:layout_height="wrap_content"
         android:text="@string/square"/>
+
+    <Button
+        android:id="@+id/btn_multi"
+        android:layout_width="0dp"
+        android:background="@color/colorYellow"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:text="@string/multi_text"/>
 </LinearLayout>
 
 </LinearLayout>

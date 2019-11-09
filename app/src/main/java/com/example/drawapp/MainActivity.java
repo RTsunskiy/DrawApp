@@ -20,15 +20,9 @@ public class MainActivity extends AppCompatActivity {
        public enum Figure {
             LINE,
            SQUARE,
-           PATH
+           PATH,
+           MULTI
         }
-
-        public enum FigureColor {
-        RED,
-            GREEN,
-            BLUE
-        }
-
 
    static DrawView drawView;
 
@@ -48,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         Button drawButton = findViewById(R.id.btn_path);
         Button lineButton = findViewById(R.id.btn_line);
         Button squareButton = findViewById(R.id.btn_square);
+        Button multiButton = findViewById(R.id.btn_multi);
 
         Button redColorButton = findViewById(R.id.btn_red);
         Button greenColorButton = findViewById(R.id.btn_green);
@@ -71,6 +66,13 @@ public class MainActivity extends AppCompatActivity {
 
 
         squareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawView.setFigure(Figure.MULTI);
+            }
+        });
+
+        multiButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 drawView.setFigure(Figure.SQUARE);
